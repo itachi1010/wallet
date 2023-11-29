@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+{% load static %}
+
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" type="text/css" href="{% static 'blog/main.css' %}" />
+    <!-- Additional styles or head content if needed -->
+
+    {% if title %}
+        <title>My Blog - {{ title }}</title>
+    {% else %}
+        <title>My Blog</title>
+    {% endif %}
+</head>
+
+<body>
+    <div class="navbar-nav">
+        {% if user.is_authenticated %}
+            <a class="nav-item nav-link" href="{% url 'profile' %}">Profile</a>
+            <a class="nav-item nav-link" href="{% url 'logout' %}">Logout</a>
+            <!-- Add the "New Post" button for authenticated users -->
+            <a class="nav-item nav-link" href="{% url 'post-create' %}">New Post</a>
+        {% else %}
+            <a class="nav-item nav-link" href="{% url 'login' %}">Login</a>
+            <a class="nav-item nav-link" href="{% url 'register' %}">Register</a>
+        {% endif %}
+    </div>
+
+    <div class="col-md-8">
+        {% block content %}
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tag }}">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+        {% endblock %}
+    </div>
+</body>
+
+</html>
