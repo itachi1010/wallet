@@ -13,6 +13,9 @@ from django.views.generic import (
 from .models import Post
 
 
+def test(request):
+    return render(request, 'blog/test.html')
+
 def home(request):
     context = {
         'posts': Post.objects.all()

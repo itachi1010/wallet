@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+{% load static %}
+
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" type="text/css" href="{% static 'blog/main.css' %}" />
+    <!-- Additional styles or head content if needed -->
+
+    {% if title %}
+        <title>My Blog - {{ title }}</title>
+    {% else %}
+        <title>My Blog</title>
+    {% endif %}
+</head>
+
+<body>
+    <div class="navbar-nav">
+        {% if user.is_authenticated %}
+            <a class="nav-item nav-link" href="{% url 'profile' %}">Profile</a>
+            <a class="nav-item nav-link" href="{% url 'logout' %}">Logout</a>
+            <!-- Add the "New Post" button for authenticated users -->
+            <a class="nav-item nav-link" href="{% url 'post-create' %}">New Post</a>
+            <a class="nav-item nav-link" href="{% url 'blog-home' %}">Home</a>
+        {% else %}
+            <a class="nav-item nav-link" href="{% url 'login' %}">Login</a>
+            <a class="nav-item nav-link" href="{% url 'register' %}">Register</a>
+            <!-- Add the "Forgot Password?" link for non-authenticated users -->
+            <small class="text-muted ml-2">
+                <a href="{% url 'password_reset' %}">Forgot Password?</a>
+            </small>
+        {% endif %}
+    </div>
+
+    <div class="col-md-8">
+        {% block content %}
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tag }}">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+        {% endblock %}
+    </div>
+
+    <!-- WebSocket script for notifications -->
+<script>
+    var socket = new WebSocket('ws://' + window.location.host + '/ws/notification/');
+
+    socket.onmessage = function (e) {
+        var data = JSON.parse(e.data);
+        console.log(data.message);
+
+        // Check if a notification message is received
+        if (data.message_type === 'notification') {
+            // Display the notification to the user
+            displayNotification(data.notification);
+        }
+    };
+
+    // Function to display the notification
+    function displayNotification(notification) {
+        // Implement your logic for displaying notifications
+        // For example, you can use a toast or alert to show the notification
+        alert(notification);
+    }
+</script>
+</body>
+
+</html>

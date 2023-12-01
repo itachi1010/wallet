@@ -1,0 +1,12 @@
+<!-- users/templates/users/send_notification.html -->
+
+{% extends 'blog/base.html' %}
+
+{% block content %}
+    <h2>Send Notification</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Send Notification</button>
+    </form>
+{% endblock %}

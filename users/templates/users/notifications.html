@@ -1,0 +1,17 @@
+<!-- users/templates/users/notifications.html -->
+
+{% extends 'blog/base.html' %}
+
+{% block content %}
+    <h2>Notifications</h2>
+    {% for notification in notifications %}
+        <div>
+            <p>{{ notification.message }}</p>
+            <small>{{ notification.timestamp }}</small>
+
+            {% if notification.is_wallet_change %}
+                <strong>This is a wallet balance change notification</strong>
+            {% endif %}
+        </div>
+    {% endfor %}
+{% endblock %}
