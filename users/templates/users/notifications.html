@@ -8,10 +8,6 @@
         <div>
             <p>{{ notification.message }}</p>
             <small>{{ notification.timestamp }}</small>
-
-            {% if notification.is_wallet_change %}
-                <strong>This is a wallet balance change notification</strong>
-            {% endif %}
         </div>
     {% endfor %}
 {% endblock %}

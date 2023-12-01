@@ -144,6 +144,6 @@ EMAIL_HOST_USER = config('EMAIL_HOST_USER', default='')
 EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD', default='')
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
-LOGIN_REDIRECT_URL = 'profile'
+LOGIN_REDIRECT_URL = 'blog-home'
 LOGIN_URL = 'login'
 

@@ -11,6 +11,7 @@ def register(request):
         form = UserRegisterForm(request.POST)
         if form.is_valid():
             form.save()
+            form.save()
             username = form.cleaned_data.get('username')
             messages.success(request, f'Your account has been created! You are now able to log in')
             return redirect('login')
@@ -34,7 +35,7 @@ def profile(request):
             # Check if the wallet balance has changed
             if previous_wallet_balance != request.user.profile.wallet:
                 # Create a notification for the user about the wallet balance change
-                Notification().save_wallet_change_notification(
+                Notification.objects.create(
                     user=request.user,
                     message=f'Your wallet balance has been updated. New balance: {request.user.profile.wallet}'
                 )

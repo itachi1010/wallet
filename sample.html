@@ -14,9 +14,9 @@
     <script src="https://cdn.jsdelivr.net/npm/toastr@2.1.4/dist/toastr.min.js"></script>
 
     {% if title %}
-        <title>Millionaire's Club</title>
+        <title>My Blog - {{ title }}</title>
     {% else %}
-        <title>Millionaire's Club</title>
+        <title>My Blog</title>
     {% endif %}
 </head>
 
@@ -24,30 +24,38 @@
     <div id="wrapper">
         <nav class="navbar navbar-dark align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0">
             <div class="container-fluid d-flex flex-column p-0">
-                <a class="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0" href="{% url 'blog-home' %}">
+                <a class="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0" href="#">
                     <div class="sidebar-brand-icon rotate-n-15"><i class="fas fa-laugh-wink"></i></div>
-                    <div class="sidebar-brand-text mx-1"><span>Millionaire's Club</span></div>
+                    <div class="sidebar-brand-text mx-3"><span>Millionaire's Club</span></div>
                 </a>
                 <hr class="sidebar-divider my-0">
                 <ul class="navbar-nav text-light" id="accordionSidebar">
                     <!-- Add your sidebar links here -->
                     {% if user.is_authenticated %}
-            <a class="nav-item nav-link" href="{% url 'blog-home' %}">Home</a>
             <a class="nav-item nav-link" href="{% url 'profile' %}">Profile</a>
+            <a class="nav-item nav-link" href="{% url 'logout' %}">Logout</a>
             <!-- Add the "New Post" button for authenticated users -->
             <a class="nav-item nav-link" href="{% url 'post-create' %}">New Post</a>
-            <a class="nav-item nav-link" href="{% url 'notifications' %}">Notifications</a>
-            <a class="nav-item nav-link" href="{% url 'logout' %}">Logout</a>
+            <a class="nav-item nav-link" href="{% url 'blog-home' %}">Home</a>
 
-
-
-
-
+            <!-- Notification dropdown -->
+            <div class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="{% url 'notifications' %}" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Notifications
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    {% for notification in user.notifications.all %}
+                        <a class="dropdown-item" href="{% url 'notifications' %}">{{ notification.message }}</a>
+                    {% endfor %}
+                </div>
+            </div>
         {% else %}
             <a class="nav-item nav-link" href="{% url 'login' %}">Login</a>
             <a class="nav-item nav-link" href="{% url 'register' %}">Register</a>
-            <a class="nav-item nav-link" href="{% url 'password_reset' %}">Forgot Password?</a>
             <!-- Add the "Forgot Password?" link for non-authenticated users -->
+            <small class="text-muted ml-2">
+                <a href="{% url 'password_reset' %}">Forgot Password?</a>
+            </small>
         {% endif %}
 
                 </ul>
@@ -72,19 +80,25 @@
                                         <i class="fas fa-search"></i>
                                     </button>
                                 </div>
-                                <div class="brand-name">
-                                    <a href="#" class="text-center text-blue">Millionaire's Club</a>
-                                </div>
                             </div>
                         </form>
-
                         <!-- Add your topbar content here -->
                         <!-- Example: Your site logo, search bar, user profile, etc. -->
                         <!-- Your existing notification dropdown goes here -->
+                                                <div class="col-md-8">
+                            {% block content %}
+                            {% if messages %}
+                                {% for message in messages %}
+                                    <div class="alert alert-{{ message.tag }}">{{ message }}</div>
+                                {% endfor %}
+                            {% endif %}
+                            {% endblock %}
+                        </div>
                     </div>
                 </nav>
 
                 <div class="container-fluid">
+                    <h3 class="text-dark mb-1">Blank Page</h3>
                     {% block content %}
                     <!-- Add your page-specific content here -->
                     <!-- Example: Main content, forms, tables, etc. -->

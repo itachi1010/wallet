@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 {% load static %}
 
@@ -6,6 +7,9 @@
 <head>
     <link rel="stylesheet" type="text/css" href="{% static 'blog/main.css' %}" />
     <!-- Additional styles or head content if needed -->
+    <!-- Include Toastr library from CDN -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastr@2.1.4/dist/toastr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/toastr@2.1.4/dist/toastr.min.js"></script>
 
     {% if title %}
         <title>My Blog - {{ title }}</title>
@@ -22,6 +26,18 @@
             <!-- Add the "New Post" button for authenticated users -->
             <a class="nav-item nav-link" href="{% url 'post-create' %}">New Post</a>
             <a class="nav-item nav-link" href="{% url 'blog-home' %}">Home</a>
+
+            <!-- Notification dropdown -->
+            <div class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="{% url 'notifications' %}" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Notifications
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    {% for notification in user.notifications.all %}
+                        <a class="dropdown-item" href="{% url 'notifications' %}">{{ notification.message }}</a>
+                    {% endfor %}
+                </div>
+            </div>
         {% else %}
             <a class="nav-item nav-link" href="{% url 'login' %}">Login</a>
             <a class="nav-item nav-link" href="{% url 'register' %}">Register</a>
@@ -43,27 +59,35 @@
     </div>
 
     <!-- WebSocket script for notifications -->
-<script>
-    var socket = new WebSocket('ws://' + window.location.host + '/ws/notification/');
+    <script>
+        var socket = new WebSocket('ws://' + window.location.host + '/ws/notification/');
 
-    socket.onmessage = function (e) {
-        var data = JSON.parse(e.data);
-        console.log(data.message);
+        socket.onmessage = function (e) {
+            var data = JSON.parse(e.data);
+            console.log(data.message);
 
-        // Check if a notification message is received
-        if (data.message_type === 'notification') {
-            // Display the notification to the user
-            displayNotification(data.notification);
-        }
-    };
+            // Check if a notification message is received
+            if (data.message_type === 'notification') {
+                // Display the notification to the user
+                displayNotification(data.notification);
+            }
+        };
 
-    // Function to display the notification
+    // Function to display the notification using Toastr
     function displayNotification(notification) {
-        // Implement your logic for displaying notifications
-        // For example, you can use a toast or alert to show the notification
-        alert(notification);
+        // Use Toastr for displaying notifications
+        toastr.success(notification, 'Notification');
+
+        // If you want to add the notification to the dropdown menu as well, you can keep the existing logic
+        var dropdownMenu = document.querySelector('.dropdown-menu');
+        var newNotificationItem = document.createElement('a');
+        newNotificationItem.classList.add('dropdown-item');
+        newNotificationItem.href = '#';
+        newNotificationItem.textContent = notification;
+        dropdownMenu.appendChild(newNotificationItem);
     }
-</script>
+
+    </script>
 </body>
 
 </html>
