@@ -72,3 +72,13 @@ def send_notification(request, user_id):
         form = AdminNotificationForm()
 
     return render(request, 'users/send_notification.html', {'form': form})
+def profile_update(request):
+    if request.method == 'POST':
+        form = ProfileUpdateForm(request.POST, request.FILES, instance=request.user.profile)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Your profile has been updated!')
+            return redirect('profile')
+    else:
+        form = ProfileUpdateForm(instance=request.user.profile)
+    return render(request, 'users/profile_update.html', {'form': form})
