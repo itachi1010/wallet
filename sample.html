@@ -1,3 +1,6 @@
+
+          <p id="id_wallet" class="form-control-static">{{ user.profile.wallet }}</p>
+
 <!DOCTYPE html>
 {% load static %}
 
@@ -123,7 +126,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.1/js/bootstrap.bundle.min.js"></script>
     <script src="{% static 'js/script.min.js' %}"></script>
     <!-- Your WebSocket script and other scripts can be added here -->
-    <!-- Your existing WebSocket script goes here -->
+    <!-- You#r existing WebSocket script goes here -->
     <script>
         var socket = new WebSocket('ws://' + window.location.host + '/ws/notification/');
 
