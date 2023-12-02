@@ -1,0 +1,46 @@
+<!-- users/templates/users/admin_page.html -->
+{% extends "blog/base.html" %}
+{% load static %}
+
+{% block content %}
+  <div class="container-fluid">
+    <h3 class="text-dark mb-4">Admin Page</h3>
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="card shadow mb-4">
+          <div class="card-header py-3">
+            <h6 class="text-primary font-weight-bold m-0">User List</h6>
+          </div>
+          <div class="card-body">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Username</th>
+                  <th scope="col">Email</th>
+                  <th scope="col">Phone Number</th>
+                  <!-- Add more columns as needed -->
+                  <th scope="col">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for user in users %}
+                  <tr>
+                    <th scope="row">{{ forloop.counter }}</th>
+                    <td>{{ user.username }}</td>
+                    <td>{{ user.email }}</td>
+                    <td>{{ user.profile.phone_number }}</td>
+                    <!-- Add more cells with user information as needed -->
+                    <td>
+                      <a href="{% url 'user_detail' user.id %}" class="btn btn-primary btn-sm">View Details</a>
+                    </td>
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock content %}

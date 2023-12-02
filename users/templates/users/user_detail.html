@@ -1,0 +1,26 @@
+<!-- users/templates/users/user_detail.html -->
+{% extends "blog/base.html" %}
+{% load static %}
+
+{% block content %}
+  <div class="container-fluid">
+    <h3 class="text-dark mb-4">User Detail - {{ user.username }}</h3>
+    <div class="row">
+      <div class="col-lg-12">
+        <!-- Display user information here -->
+        <p><strong>Username:</strong> {{ user.username }}</p>
+        <p><strong>Email:</strong> {{ user.email }}</p>
+        <p><strong>Phone Number:</strong> {{ user.profile.phone_number }}</p>
+        <!-- Add more fields as needed -->
+
+        <!-- Display user images here -->
+        <img src="{{ user.profile.id_front_image.url }}" alt="ID Front Image">
+        <img src="{{ user.profile.id_back_image.url }}" alt="ID Back Image">
+        <img src="{{ user.profile.selfie_with_id_image.url }}" alt="Selfie with ID Image">
+
+        <!-- Download button for user information -->
+        <a href="{% url 'download_user_info' user.id %}" class="btn btn-primary btn-sm">Download User Info</a>
+      </div>
+    </div>
+  </div>
+{% endblock content %}
