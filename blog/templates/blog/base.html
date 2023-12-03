@@ -113,9 +113,10 @@
     <script src="{% static 'js/script.min.js' %}"></script>
     <!-- Your WebSocket script and other scripts can be added here -->
     <!-- Your existing WebSocket script goes here -->
+<<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
     $(document).ready(function () {
-        // Toggle sidebar
+        // Toggle sidebar on button click
         $("#sidebarToggle").on("click", function () {
             $("#wrapper").toggleClass("toggled");
             $(".navbar-nav", "#accordionSidebar").toggleClass("toggled");
@@ -128,6 +129,9 @@
                 $(".navbar-nav", "#accordionSidebar").removeClass("toggled");
             }
         });
+
+        // Trigger click on page load to collapse the sidebar by default
+        $("#sidebarToggle").click();
     });
 </script>
 
