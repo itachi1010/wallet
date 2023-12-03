@@ -7,7 +7,7 @@ cryptography
 defusedxml
 Django
 django-allauth
-django-crispy-forms
+django-crispy-forms==1.14.0
 django-formtools
 django-guardian
 djangorestframework
