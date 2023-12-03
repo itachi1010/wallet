@@ -25,7 +25,7 @@ class UserUpdateForm(forms.ModelForm):
 class ProfileUpdateForm(forms.ModelForm):
     class Meta:
         model = Profile
-        fields = ['image', 'wallet', 'full_name', 'date_of_birth', 'phone_number', 'identification_type', 'id_front_image', 'id_back_image', 'selfie_with_id_image', 'social_security_number']
+        fields = ['image', 'full_name', 'date_of_birth', 'phone_number', 'identification_type', 'id_front_image', 'id_back_image', 'selfie_with_id_image', 'social_security_number']
 
 
 class AdminNotificationForm(forms.Form):
