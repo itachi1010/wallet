@@ -10,8 +10,6 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
     <link rel="stylesheet" href="{% static 'css/styles.min.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'blog/main.css' %}" />
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastr@2.1.4/dist/toastr.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/toastr@2.1.4/dist/toastr.min.js"></script>
 
     {% if title %}
         <title>Millionaire's Club</title>
@@ -117,33 +115,6 @@
     <!-- Your WebSocket script and other scripts can be added here -->
     <!-- Your existing WebSocket script goes here -->
     <script>
-        var socket = new WebSocket('ws://' + window.location.host + '/ws/notification/');
-
-        socket.onmessage = function (e) {
-            var data = JSON.parse(e.data);
-            console.log(data.message);
-
-            // Check if a notification message is received
-            if (data.message_type === 'notification') {
-                // Display the notification to the user
-                displayNotification(data.notification);
-            }
-        };
-
-    // Function to display the notification using Toastr
-    function displayNotification(notification) {
-        // Use Toastr for displaying notifications
-        toastr.success(notification, 'Notification');
-
-        // If you want to add the notification to the dropdown menu as well, you can keep the existing logic
-        var dropdownMenu = document.querySelector('.dropdown-menu');
-        var newNotificationItem = document.createElement('a');
-        newNotificationItem.classList.add('dropdown-item');
-        newNotificationItem.href = '#';
-        newNotificationItem.textContent = notification;
-        dropdownMenu.appendChild(newNotificationItem);
-    }
-
     </script>
 </body>
 
