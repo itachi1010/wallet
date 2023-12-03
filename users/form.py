@@ -39,7 +39,6 @@ class CardForm(forms.ModelForm):
 
 
 class TransactionForm(forms.ModelForm):
-    # Add the choices for the bank field
     BANK_CHOICES = [
         ('bank_of_america', 'Bank of America'),
         ('wells_fargo', 'Wells Fargo'),
@@ -52,3 +51,8 @@ class TransactionForm(forms.ModelForm):
     class Meta:
         model = Transaction
         fields = ['card', 'bank', 'amount']
+
+    def __init__(self, user, *args, **kwargs):
+        super(TransactionForm, self).__init__(*args, **kwargs)
+        # Restrict card choices to only the cards owned by the user
+        self.fields['card'].queryset = Card.objects.filter(user=user)

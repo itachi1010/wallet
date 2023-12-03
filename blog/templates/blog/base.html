@@ -16,12 +16,25 @@
     {% else %}
         <title>Millionaire's Club</title>
     {% endif %}
+<style>
+    /* Add custom styles for the collapsed navbar button */
+    @media (max-width: 768px) {
+        #wrapper.toggled .navbar-nav {
+            display: none;
+        }
+
+        #wrapper.toggled #content-wrapper {
+            margin-left: 0;
+        }
+    }
+</style>
 </head>
 
 <body id="page-top">
     <div id="wrapper">
         <nav class="navbar navbar-dark align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0">
             <div class="container-fluid d-flex flex-column p-0">
+
                 <a class="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0" href="{% url 'blog-home' %}">
                     <div class="sidebar-brand-icon rotate-n-15"><i class="fa fa-cubes"></i></div>
                     <div class="sidebar-brand-text mx-1"><span>Millionaire's Club</span></div>
@@ -40,24 +53,14 @@
               {% if user.is_superuser %}
                 <a class="nav-item nav-link" href="{% url 'admin_page' %}">Admin Page</a>
               {% endif %}
-
-
-
-
-
-
-
         {% else %}
             <a class="nav-item nav-link" href="{% url 'login' %}">Login</a>
             <a class="nav-item nav-link" href="{% url 'register' %}">Register</a>
             <a class="nav-item nav-link" href="{% url 'password_reset' %}">Forgot Password?</a>
             <!-- Add the "Forgot Password?" link for non-authenticated users -->
         {% endif %}
-
                 </ul>
-                <div class="text-center d-none d-md-inline">
-                    <button class="btn rounded-circle border-0" id="sidebarToggle" type="button"></button>
-                </div>
+
             </div>
         </nav>
 
@@ -65,9 +68,9 @@
             <div id="content">
                 <nav class="navbar navbar-light navbar-expand bg-white shadow mb-4 topbar static-top">
                     <div class="container-fluid">
-                        <button class="btn btn-link d-md-none rounded-circle mr-3" id="sidebarToggleTop" type="button">
-                            <i class="fas fa-bars"></i>
-                        </button>
+                <button class="btn rounded-circle border-0" id="sidebarToggle" type="button">
+                    <i class="fas fa-bars"></i>
+                </button>
                         <form class="form-inline d-none d-sm-inline-block mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
                             <div class="input-group">
                                 <input class="bg-light form-control border-0 small" type="text" placeholder="Search for ...">
@@ -81,10 +84,6 @@
                                 </div>
                             </div>
                         </form>
-
-                        <!-- Add your topbar content here -->
-                        <!-- Example: Your site logo, search bar, user profile, etc. -->
-                        <!-- Your existing notification dropdown goes here -->
                     </div>
                 </nav>
 
@@ -114,8 +113,24 @@
     <script src="{% static 'js/script.min.js' %}"></script>
     <!-- Your WebSocket script and other scripts can be added here -->
     <!-- Your existing WebSocket script goes here -->
-    <script>
-    </script>
+<script>
+    $(document).ready(function () {
+        // Toggle sidebar
+        $("#sidebarToggle").on("click", function () {
+            $("#wrapper").toggleClass("toggled");
+            $(".navbar-nav", "#accordionSidebar").toggleClass("toggled");
+        });
+
+        // Hide sidebar when clicking outside
+        $(document).click(function (e) {
+            if (!$(e.target).closest('#sidebarToggle').length) {
+                $("#wrapper").removeClass("toggled");
+                $(".navbar-nav", "#accordionSidebar").removeClass("toggled");
+            }
+        });
+    });
+</script>
+
 </body>
 
 </html>

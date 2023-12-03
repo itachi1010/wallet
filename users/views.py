@@ -47,7 +47,7 @@ def profile(request):
         'u_form': u_form,
         'p_form': p_form,
         'card_form': card_form,
-        'user_cards': Card.objects.filter(user=request.user),  # Add this line to fetch user's cards
+        'user_cards': Card.objects.filter(user=request.user),
     }
 
     if request.method == 'POST':
@@ -177,13 +177,26 @@ def add_card(request):
         form = CardForm()
     return render(request, 'users/card.html', {'form': form})
 
-
 @login_required
-@user_passes_test(lambda u: u.is_superuser)
 def view_user_card(request, user_id):
     user = get_object_or_404(User, id=user_id)
-    user_cards = Card.objects.filter(user=user)
-    return render(request, 'users/view_user_card.html', {'user': user, 'user_cards': user_cards})
+
+    # Check if the current user is the owner of the profile or an administrator
+    if request.user == user or request.user.is_superuser:
+        user_cards = Card.objects.filter(user=user)
+        return render(request, 'users/view_user_card.html', {'user': user, 'user_cards': user_cards})
+    else:
+        # Redirect or show an error message for unauthorized users
+        messages.error(request, 'You are not authorized to view this user\'s cards.')
+        return redirect('profile')  # Redirect to the user's profile or any other page
+
+
+# @login_required
+# @user_passes_test(lambda u: u.is_superuser)
+# def view_user_card(request, user_id):
+#     user = get_object_or_404(User, id=user_id)
+#     user_cards = Card.objects.filter(user=user)
+#     return render(request, 'users/view_user_card.html', {'user': user, 'user_cards': user_cards})
 
 
 # users/views.py
@@ -193,7 +206,7 @@ def view_user_card(request, user_id):
 def send_money(request):
     if request.method == 'POST':
         # Process the form data
-        form = TransactionForm(request.POST)
+        form = TransactionForm(request.user, request.POST)
         if form.is_valid():
             transaction = form.save(commit=False)
             transaction.user = request.user
@@ -216,9 +229,8 @@ def send_money(request):
             messages.success(request, 'Transaction successful!')
             return redirect('send_money')
 
-
     else:
-        form = TransactionForm()
+        form = TransactionForm(request.user)
 
     # If it's not a POST request, show the form
     return render(request, 'users/send_money.html', {'form': form})
