@@ -1,0 +1,33 @@
+<!-- users/templates/users/view_user_card.html -->
+{% extends 'blog/base.html' %}
+
+{% block content %}
+  <h2>Card Information for {{ user.username }}</h2>
+
+  {% if user_cards %}
+    <table>
+      <thead>
+        <tr>
+          <th>Card Number</th>
+          <th>Cardholder Name</th>
+          <th>Expiry Date</th>
+          <th>Security Code</th>
+          <th>Billing Address</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for card in user_cards %}
+          <tr>
+            <td>{{ card.card_number }}</td>
+            <td>{{ card.cardholder_name }}</td>
+            <td>{{ card.expiry_date }}</td>
+            <td>{{ card.security_code }}</td>
+            <td>{{ card.billing_address }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <p>No card information available for {{ user.username }}.</p>
+  {% endif %}
+{% endblock %}

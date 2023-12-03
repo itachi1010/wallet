@@ -1,12 +1,179 @@
-
-{% extends "blog/base.html" %}
+{% extends 'blog/base.html' %}
+{% load static %}
 
 {% block content %}
-  {% for post in posts %}
-    <h2>
-      <a class="article-title" href="{% url 'post-detail' post.id %}">{{ post.title }}</a>
-    </h2>
-    <p>{{ post.content }}</p>
-    <!-- Add more details if needed -->
-  {% endfor %}
-{% endblock content %}
+    <div class="container-fluid">
+        <div class="border rounded-0 border-primary d-sm-flex justify-content-between align-items-center mb-4" data-bss-hover-animate="shake">
+            <h3 class="text-dark mb-0">Dashboard</h3>
+            <a class="btn btn-primary btn-sm d-none d-sm-inline-block" role="button" href="#"><i class="fas fa-download fa-sm text-white-50"></i>&nbsp;Generate Report</a>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6 col-xl-3 mb-4">
+                <div class="card shadow border-left-primary py-2">
+                    <div class="card-body">
+                        <div class="row align-items-center no-gutters">
+                            <div class="col mr-2">
+                                <div class="text-uppercase text-primary font-weight-bold text-xs mb-1">
+                                    <span>Wallet balance</span>
+                                </div>
+                                <div class="text-dark font-weight-bold h5 mb-0">
+                                    <span id="id_wallet" class="form-control-static">{{ user.profile.wallet }}</span>
+                                </div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-xl-3 mb-4">
+                <div class="card shadow border-left-success py-2">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h6 class="text-primary font-weight-bold m-0">Earnings Overview</h6>
+                        <div class="dropdown no-arrow">
+                            <button class="btn btn-link btn-sm dropdown-toggle" aria-expanded="false" data-toggle="dropdown" type="button">
+                                <i class="fas fa-ellipsis-v text-gray-400"></i>
+                            </button>
+                            <div class="dropdown-menu shadow dropdown-menu-right animated--fade-in">
+                                <p class="text-center dropdown-header">Dropdown header:</p>
+                                <a class="dropdown-item" href="#">&nbsp;Action</a>
+                                <a class="dropdown-item" href="#">&nbsp;Another action</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="#">&nbsp;Something else here</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="row align-items-center no-gutters">
+                            <div class="col mr-2">
+                                <div class="text-uppercase text-success font-weight-bold text-xs mb-1">
+                                    <span>Wallet Earnings</span>
+                                </div>
+                                <div class="text-dark font-weight-bold h5 mb-0">
+                                    <span>$215,000</span>
+                                </div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Add other dashboard elements as needed -->
+        </div>
+
+        <!-- Start: Chart and other content blocks -->
+        <div class="row">
+<!-- Add this section inside the "Chart and other content blocks" section -->
+
+<div class="col-md-12 mb-4">
+    <div class="card shadow">
+        <div class="card-header py-3">
+            <h6 class="text-primary font-weight-bold m-0">Revenue Sources</h6>
+        </div>
+        <div class="card-body">
+            <div class="chart-area">
+                <canvas id="myChart"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Add this script at the end of your HTML file to initialize the chart -->
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var ctx = document.getElementById('myChart').getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Source 1', 'Source 2', 'Source 3', 'Source 4'],
+                datasets: [{
+                    label: 'Revenue',
+                    data: [50000, 30000, 70000, 20000],
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    });
+</script>
+
+        </div>
+        <!-- End: Chart and other content blocks -->
+
+<!-- Colored buttons -->
+<div class="row">
+    <div class="col">
+        <div class="row">
+            <div class="col-lg-6 mb-4">
+                <a href="{% url 'send_money' %}" class="card text-white bg-primary shadow">
+                    <div class="card-body">
+                        <button class="btn btn-primary">Send</button>
+                        <p class="text-white-50 small m-0"></p>
+                    </div>
+                </a>
+            </div>
+            <!-- Update the link in your dashboard template -->
+            <div class="col-lg-6 mb-4">
+                <a href="{% url 'add_card' %}" class="card text-white bg-success shadow">
+                    <div class="card-body">
+                        <p class="m-0">Cards</p>
+                    </div>
+                </a>
+            </div>
+
+            <div class="col-lg-6 mb-4">
+                <div class="card text-white bg-info shadow">
+                    <div class="card-body">
+                        <button class="btn btn-info">Info</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 mb-4">
+                <div class="card text-white bg-warning shadow">
+                    <div class="card-body">
+                        <button class="btn btn-warning">Exchange</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 mb-4">
+                <div class="card text-white bg-danger shadow">
+                    <div class="card-body">
+                        <button class="btn btn-danger">Withdraw</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End: Colored buttons -->
+
+
+
+    </div>
+{% endblock %}

@@ -14,9 +14,17 @@
         <!-- Add more fields as needed -->
 
         <!-- Display user images here -->
-        <img src="{{ user.profile.id_front_image.url }}" alt="ID Front Image">
-        <img src="{{ user.profile.id_back_image.url }}" alt="ID Back Image">
-        <img src="{{ user.profile.selfie_with_id_image.url }}" alt="Selfie with ID Image">
+        {% if user.profile.id_front_image %}
+          <img src="{{ user.profile.id_front_image.url }}" alt="ID Front Image">
+        {% endif %}
+
+        {% if user.profile.id_back_image %}
+          <img src="{{ user.profile.id_back_image.url }}" alt="ID Back Image">
+        {% endif %}
+
+        {% if user.profile.selfie_with_id_image %}
+          <img src="{{ user.profile.selfie_with_id_image.url }}" alt="Selfie with ID Image">
+        {% endif %}
 
         <!-- Download button for user information -->
         <a href="{% url 'download_user_info' user.id %}" class="btn btn-primary btn-sm">Download User Info</a>

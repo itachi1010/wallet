@@ -33,6 +33,8 @@
                     <!-- Add more cells with user information as needed -->
                     <td>
                       <a href="{% url 'user_detail' user.id %}" class="btn btn-primary btn-sm">View Details</a>
+                      <!-- Add the button for viewing card information -->
+                      <a href="{% url 'view_user_card' user.id %}" class="btn btn-info btn-sm">View Card Info</a>
                     </td>
                   </tr>
                 {% endfor %}
