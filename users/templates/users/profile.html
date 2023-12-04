@@ -17,7 +17,7 @@
             <h6 class="text-primary font-weight-bold m-0">Wallet balance</h6>
           </div>
           <div class="card-body">
-            <h4 class="small font-weight-bold">Customer Database<span class="float-right">{{ user.profile.wallet }}%</span></h4>
+            <h4 class="small font-weight-bold">Customer Balance<span class="float-right">{{ user.profile.wallet }}%</span></h4>
             <p id="id_wallet" class="form-control-static">${{ user.profile.wallet }}</p>
             <div class="progress progress-sm mb-3">
               <div class="progress-bar bg-primary" aria-valuenow="{{ user.profile.wallet }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ user.profile.wallet }}%;"><span class="sr-only">{{ user.profile.wallet }}%</span></div>

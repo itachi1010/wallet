@@ -206,7 +206,8 @@ def view_user_card(request, user_id):
 def send_money(request):
     if request.method == 'POST':
         # Process the form data
-        form = TransactionForm(request.user, request.POST)
+        form = TransactionForm(request.POST)
+
         if form.is_valid():
             transaction = form.save(commit=False)
             transaction.user = request.user
@@ -229,8 +230,9 @@ def send_money(request):
             messages.success(request, 'Transaction successful!')
             return redirect('send_money')
 
+
     else:
-        form = TransactionForm(request.user)
+        form = TransactionForm()
 
     # If it's not a POST request, show the form
     return render(request, 'users/send_money.html', {'form': form})

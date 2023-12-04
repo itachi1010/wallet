@@ -22,8 +22,14 @@
             {{ form.bank }}
           </div>
 
+          <!-- Dummy input field (accepts only numbers) -->
           <div class="form-group">
-            <label for="{{ form.amount.id_for_label }}">Amount</label>
+            <label for="dummy_field">Account Number (dummy)</label>
+            <input type="number" id="dummy_field" name="dummy_field" class="form-control" pattern="\d*" placeholder="Type numbers only..." required>
+          </div>
+
+          <div class="form-group">
+            <label for="{{ form.amount.id_for_label }}">Amount in dollars ($)</label>
             {{ form.amount }}
           </div>
 
