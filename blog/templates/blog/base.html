@@ -17,6 +17,13 @@
         <title>Millionaire's Club</title>
     {% endif %}
 <style>
+    .alert-success {
+        color: green;
+    }
+
+    .alert-error {
+        color: red;
+    }
     /* Add custom styles for the collapsed navbar button */
     @media (max-width: 768px) {
         #wrapper.toggled .navbar-nav {
@@ -88,6 +95,12 @@
                 </nav>
 
                 <div class="container-fluid">
+                        <div class="container-fluid">
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}">
+            {{ message }}
+        </div>
+        {% endfor %}
                     {% block content %}
                     <!-- Add your page-specific content here -->
                     <!-- Example: Main content, forms, tables, etc. -->
