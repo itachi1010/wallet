@@ -44,6 +44,12 @@ class TransactionForm(forms.ModelForm):
         ('bank_of_america', 'Bank of America'),
         ('wells_fargo', 'Wells Fargo'),
         ('chase', 'Chase'),
+        ('bank_of_new_york_mellon', 'Bank of New York Mellon'),
+        ('citigroup', 'Citigroup'),
+        ('truist_bank', 'Truist Bank'),
+        ('american_express', 'American Express'),
+        ('deutsche_bank', 'Deutsche Bank'),
+        ('dz_bank', 'DZ Bank'),
         # Add more banks as needed
     ]
 
