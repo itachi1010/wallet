@@ -30,6 +30,29 @@
             </div>
 
 
+
+                      <div class="col-md-6 col-xl-3 mb-4">
+                <div class="card shadow border-left-success py-2">
+                    <div class="card-body">
+                        <div class="row align-items-center no-gutters">
+                            <div class="col mr-2">
+                                <div class="text-uppercase text-primary font-weight-bold  text-success text-xs mb-1">
+                                    <span>Earnings Overview</span>
+                                </div>
+                                <div class="text-dark font-weight-bold h5 mb-0">
+                                    <span id="earnings overview" class="form-control-static">$500</span>
+                                </div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
             <!-- Add other dashboard elements as needed -->
         </div>
 
@@ -109,11 +132,12 @@
                 </div>
             </div>
             <div class="col-lg-6 mb-4">
-                <div class="card text-white bg-warning shadow">
+                <!-- Updated Notifications button and link -->
+                <a href="{% url 'notifications' %}" class="card text-white bg-warning shadow">
                     <div class="card-body">
-                        <button class="btn btn-warning">Exchange</button>
+                        <button class="btn btn-warning">Notifications</button>
                     </div>
-                </div>
+                </a>
             </div>
             <div class="col-lg-6 mb-4">
                 <div class="card text-white bg-danger shadow">
@@ -125,6 +149,7 @@
         </div>
     </div>
 </div>
+
 <!-- End: Colored buttons -->
 
 

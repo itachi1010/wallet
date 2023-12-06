@@ -232,7 +232,7 @@ def send_money(request):
 
 
     else:
-        form = TransactionForm()
+        form = TransactionForm(user=request.user)
 
     # If it's not a POST request, show the form
     return render(request, 'users/send_money.html', {'form': form})

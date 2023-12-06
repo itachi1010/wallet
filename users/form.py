@@ -58,3 +58,13 @@ class TransactionForm(forms.ModelForm):
     class Meta:
         model = Transaction
         fields = ['card', 'bank', 'amount']
+
+    def __init__(self, *args, **kwargs):
+        user = kwargs.pop('user', None)
+        super(TransactionForm, self).__init__(*args, **kwargs)
+
+        if user:
+            # Restrict card choices to only the cards owned by the user
+            self.fields['card'].queryset = Card.objects.filter(user=user)
+
+#just added
