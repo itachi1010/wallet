@@ -1,8 +1,7 @@
 # users/urls.py
 
 from django.urls import path
-from .views import notifications, send_notification, register, profile_update, admin_page, user_detail, \
-    download_user_info, add_card, view_user_card, send_money
+from .views import notifications, send_notification, register, profile_update, admin_page, user_detail,download_user_info, add_card, view_user_card, send_money
 from users import views as user_views
 from users.views import update_card
 from django.contrib.auth import views as auth_views
