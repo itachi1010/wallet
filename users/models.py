@@ -14,6 +14,7 @@ class Notification(models.Model):
     def __str__(self):
         return self.message
 
+
 class Card(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     card_number = models.CharField(max_length=16)
@@ -24,6 +25,7 @@ class Card(models.Model):
 
     def __str__(self):
         return f"{self.cardholder_name}'s Card"
+
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -58,6 +60,7 @@ class Profile(models.Model):
             img.thumbnail(output_size)
             img.save(self.image.path)
 
+
 class Transaction(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     card = models.ForeignKey('Card', on_delete=models.CASCADE)
@@ -75,5 +78,3 @@ class Transaction(models.Model):
         # admin_user = User.objects.get(username='benny')  # Replace 'admin' with your actual admin username
         # message = f"New transaction by {self.user.username}. Amount: ${self.amount}"
         # Notification.objects.create(user=admin_user, message=message)
-
-

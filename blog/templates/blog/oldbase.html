@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+{% load static %}
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
+    <link rel="stylesheet" href="{% static 'css/styles.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'blog/main.css' %}" />
+
+    {% if title %}
+        <title>World Bank</title>
+    {% else %}
+        <title>World Bank</title>
+    {% endif %}
+<style>
+    .alert-success {
+        color: green;
+    }
+
+    .alert-error {
+        color: red;
+    }
+    /* Add custom styles for the collapsed navbar button */
+    @media (max-width: 768px) {
+        #wrapper.toggled .navbar-nav {
+            display: none;
+        }
+
+        #wrapper.toggled #content-wrapper {
+            margin-left: 0;
+        }
+    }
+</style>
+</head>
+
+<body id="page-top">
+    <div id="wrapper">
+        <nav class="navbar navbar-dark align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0">
+            <div class="container-fluid d-flex flex-column p-0">
+
+                <a class="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0" href="{% url 'blog-home' %}">
+                    <div class="sidebar-brand-icon rotate-n-15"><i class="fa fa-cubes"></i></div>
+                    <div class="sidebar-brand-text mx-1"><span>World Bank</span></div>
+                </a>
+                <hr class="sidebar-divider my-0">
+                <ul class="navbar-nav text-light" id="accordionSidebar">
+                    <!-- Add your sidebar links here -->
+                    {% if user.is_authenticated %}
+            <a class="nav-item nav-link" href="{% url 'blog-home' %}">DashBoard</a>
+            <a class="nav-item nav-link" href="{% url 'profile' %}">Profile</a>
+            <!-- Add the "New Post" button for authenticated users -->
+            <a class="nav-item nav-link" href="{% url 'notifications' %}">Notifications</a>
+            <a class="nav-item nav-link" href="{% url 'logout' %}">Logout</a>
+            <a class="nav-item nav-link" href="{% url 'profile_update' %}">Update Profile</a>
+                    <!-- Inside the <ul class="navbar-nav text-light" id="accordionSidebar"> element -->
+              {% if user.is_superuser %}
+                <a class="nav-item nav-link" href="{% url 'admin_page' %}">Admin Page</a>
+              {% endif %}
+        {% else %}
+            <a class="nav-item nav-link" href="{% url 'login' %}">Login</a>
+            <a class="nav-item nav-link" href="{% url 'register' %}">Register</a>
+            <a class="nav-item nav-link" href="{% url 'password_reset' %}">Forgot Password?</a>
+            <!-- Add the "Forgot Password?" link for non-authenticated users -->
+        {% endif %}
+                </ul>
+
+            </div>
+        </nav>
+
+        <div class="d-flex flex-column" id="content-wrapper">
+            <div id="content">
+                <nav class="navbar navbar-light navbar-expand bg-white shadow mb-4 topbar static-top">
+                    <div class="container-fluid">
+                <button class="btn rounded-circle border-0" id="sidebarToggle" type="button">
+                    <i class="fas fa-bars"></i>
+                </button>
+                        <form class="form-inline d-none d-sm-inline-block mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                            <div class="input-group">
+                                <input class="bg-light form-control border-0 small" type="text" placeholder="Search for ...">
+                                <div class="input-group-append">
+                                    <button class="btn btn-primary py-0" type="button">
+                                        <i class="fas fa-search"></i>
+                                    </button>
+                                </div>
+                                <div class="brand-name">
+                                    <a href="#" class="text-center text-blue">World Bank</a>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </nav>
+
+                <div class="container-fluid">
+                        <div class="container-fluid">
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}">
+            {{ message }}
+        </div>
+        {% endfor %}
+                    {% block content %}
+                    <!-- Add your page-specific content here -->
+                    <!-- Example: Main content, forms, tables, etc. -->
+                    {% endblock %}
+                </div>
+            </div>
+
+            <footer class="bg-white sticky-footer">
+                <div class="container my-auto">
+                    <div class="text-center my-auto copyright">
+                        <span>Copyright © World Bank 2023</span>
+                    </div>
+                </div>
+            </footer>
+        </div>
+        <a class="border rounded d-inline scroll-to-top" href="#page-top">
+            <i class="fas fa-angle-up"></i>
+        </a>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.1/js/bootstrap.bundle.min.js"></script>
+    <script src="{% static 'js/script.min.js' %}"></script>
+    <!-- Your WebSocket script and other scripts can be added here -->
+    <!-- Your existing WebSocket script goes here -->
+<<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    $(document).ready(function () {
+        // Toggle sidebar on button click
+        $("#sidebarToggle").on("click", function () {
+            $("#wrapper").toggleClass("toggled");
+            $(".navbar-nav", "#accordionSidebar").toggleClass("toggled");
+        });
+
+        // Hide sidebar when clicking outside
+        $(document).click(function (e) {
+            if (!$(e.target).closest('#sidebarToggle').length) {
+                $("#wrapper").removeClass("toggled");
+                $(".navbar-nav", "#accordionSidebar").removeClass("toggled");
+            }
+        });
+
+        // Trigger click on page load to collapse the sidebar by default
+        $("#sidebarToggle").click();
+    });
+</script>
+
+</body>
+
+</html>

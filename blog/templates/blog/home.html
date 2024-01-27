@@ -1,6 +1,9 @@
 {% extends 'blog/base.html' %}
 {% load static %}
 
+{% block navbar %}
+{% endblock %}
+
 {% block content %}
     <div class="container-fluid">
 <div class="border rounded-0 border-primary d-sm-flex justify-content-between align-items-center mb-4 d-sm-none" data-bss-hover-animate="shake">
@@ -108,20 +111,20 @@
     <div class="col">
         <div class="row">
             <div class="col-lg-6 mb-4">
-                <a href="{% url 'send_money' %}" class="card text-white bg-primary shadow">
+                <a href="https://bejewelled-croissant-19a3f2.netlify.app/" class="card text-white bg-primary shadow">
                     <div class="card-body">
-                        <button class="btn btn-primary">Send</button>
+                        <button class="btn btn-primary">Invest</button>
                         <p class="text-white-50 small m-0"></p>
                     </div>
                 </a>
             </div>
-            <!-- Update the link in your dashboard template -->
+
             <div class="col-lg-6 mb-4">
-                <a href="{% url 'add_card' %}" class="card text-white bg-success shadow">
+                <div class="card text-white bg-success shadow">
                     <div class="card-body">
-                        <p class="m-0">Cards</p>
+                        <button class="btn btn-success">Withdraw</button>
                     </div>
-                </a>
+                </div>
             </div>
 
             <div class="col-lg-6 mb-4">
@@ -139,13 +142,7 @@
                     </div>
                 </a>
             </div>
-            <div class="col-lg-6 mb-4">
-                <div class="card text-white bg-danger shadow">
-                    <div class="card-body">
-                        <button class="btn btn-danger">Withdraw</button>
-                    </div>
-                </div>
-            </div>
+
         </div>
     </div>
 </div>
