@@ -20,7 +20,7 @@
                                 <div class="text-uppercase text-primary font-weight-bold text-xs mb-1">
                                     <span>Wallet balance</span>
                                 </div>
-                                <div class="text-dark font-weight-bold h5 mb-0">
+                                <div class="text-white font-weight-bold h5 mb-0">
                                     <span id="id_wallet" class="form-control-static">${{ user.profile.wallet }}</span>
                                 </div>
                             </div>
@@ -42,7 +42,7 @@
                                 <div class="text-uppercase text-primary font-weight-bold  text-success text-xs mb-1">
                                     <span>Earnings Overview</span>
                                 </div>
-                                <div class="text-dark font-weight-bold h5 mb-0">
+                                <div class="text-white font-weight-bold h5 mb-0">
                                     <span id="earnings overview" class="form-control-static">$500</span>
                                 </div>
                             </div>
@@ -113,39 +113,38 @@
             <div class="col-lg-6 mb-4">
                 <a href="https://bejewelled-croissant-19a3f2.netlify.app/" class="card text-white bg-primary shadow">
                     <div class="card-body">
-                        <button class="btn btn-primary">Invest</button>
+                        <button class="btn btn-primary text-white">Invest</button>
                         <p class="text-white-50 small m-0"></p>
                     </div>
                 </a>
             </div>
 
             <div class="col-lg-6 mb-4">
-                <div class="card text-white bg-success shadow">
+                <a href="{% url 'send_money' %}" class="card text-white bg-success shadow">
                     <div class="card-body">
-                        <button class="btn btn-success">Withdraw</button>
+                        <button class="btn btn-success text-white">Withdraw</button>
                     </div>
-                </div>
+                </a>
             </div>
 
             <div class="col-lg-6 mb-4">
                 <div class="card text-white bg-info shadow">
                     <div class="card-body">
-                        <button class="btn btn-info">information</button>
+                        <button class="btn btn-info text-white">Information</button>
                     </div>
                 </div>
             </div>
             <div class="col-lg-6 mb-4">
-                <!-- Updated Notifications button and link -->
                 <a href="{% url 'notifications' %}" class="card text-white bg-warning shadow">
                     <div class="card-body">
-                        <button class="btn btn-warning">Notifications</button>
+                        <button class="btn btn-warning text-white">Notifications</button>
                     </div>
                 </a>
             </div>
-
         </div>
     </div>
 </div>
+
 
 <!-- End: Colored buttons -->
 
