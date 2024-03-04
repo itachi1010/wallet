@@ -1,4 +1,6 @@
-{% extends "blog/base.html" %} {% load crispy_forms_tags %} {% block content %}
+{% extends "blog/base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
 <div class="content-section">
   <!-- Sign up form -->
   <form method="POST">
@@ -8,7 +10,7 @@
       {{ form|crispy }}
     </fieldset>
     <div class="form-group">
-      <button class="btn btn-outline-info" type="submit">Login</button>
+      <button class="btn btn-outline-info" type="submit" style="background-color: #17a2b8; color: white; border: none; padding: 10px 20px; border-radius: 5px; box-shadow: 0 4px 8px rgba(0,0,0,0.2); transition: all 0.3s ease;">Login</button>
     </div>
   </form>
   <!-- Sign in form -->
@@ -19,4 +21,16 @@
     </small>
   </div>
 </div>
+<script>
+// Add a simple hover effect using JavaScript
+document.querySelector('.btn-outline-info').addEventListener('mouseover', function() {
+  this.style.backgroundColor = '#138496';
+  this.style.boxShadow = '0 6px 12px rgba(0,0,0,0.3)';
+});
+
+document.querySelector('.btn-outline-info').addEventListener('mouseout', function() {
+  this.style.backgroundColor = '#17a2b8';
+  this.style.boxShadow = '0 4px 8px rgba(0,0,0,0.2)';
+});
+</script>
 {% endblock content %}

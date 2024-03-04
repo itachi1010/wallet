@@ -6,6 +6,7 @@ charset-normalizer
 cryptography
 defusedxml
 Django
+django-shortuuidfield
 django-allauth
 django-crispy-forms==1.14.0
 django-formtools
